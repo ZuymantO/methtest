@@ -108,7 +108,7 @@ class StringSetTest extends FlatSpec with BeforeAndAfterEach {
   it should " be the inner sub String Set when apply intersection with an inner sub String Set " in {
     val m_inner 	= gss & inner
     assert(m_inner.size == inner.size)
-    assert(List.forall2(m_inner.enum, inner.enum)((a,b) => a == b))
+    assert((m_inner.enum, inner.enum).zipped.forall((a,b) => a == b))
     
   } 
 
@@ -120,7 +120,7 @@ class StringSetTest extends FlatSpec with BeforeAndAfterEach {
   
   it should " be the same when apply union with an inner sub String Set " in {
     val m_null 	= gss | inner
-    assert(List.forall2(m_null.enum, gss.enum)((a,b) => a == b))
+    assert((m_null.enum, gss.enum).zipped.forall((a,b) => a == b))
   }
   
   it should " have same size after apply union with an inner sub String Set " in {
