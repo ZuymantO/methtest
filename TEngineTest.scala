@@ -43,6 +43,11 @@ class TEngineTest  extends FlatSpec with BeforeAndAfterEach {
 
    
    "A Simple Template Engine" should "recognize well formed template string" in {
+    assert(ste.checkSyntax)
+    assert(scte.checkSyntax)
+    assert(sste.checkSyntax)
+    assert(cte.checkSyntax)
+    assert(!(new TEngine("Ma forme template ${$nom sans fermeture", Map())).checkSyntax)
   }
 
    it should "returns a not null string value for any entries" in {
@@ -54,7 +59,7 @@ class TEngineTest  extends FlatSpec with BeforeAndAfterEach {
    }
 
    it should "evaluate simple single variable expression" in {
-     assert(false)
+     assert(scte.perform)
    }
 
    it should "evaluate simple multiple variables expression" in {
