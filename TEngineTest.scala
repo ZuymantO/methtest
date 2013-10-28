@@ -28,7 +28,7 @@ class TEngineTest  extends FlatSpec with BeforeAndAfterEach {
     cte   = new TEngine("""
         Simple texte with $first simple follow by a ${$complex} one 
         and an other ${${$var}} one variable
-        """, Map("first" -> "Premier", "complex" -> "olala", "olala" -> "Compliqué",
+        """, Map("first" -> "Premier", "complex" -> "ola", "ola" -> "Compliqué",
             "var" -> "variable", "variable" -> "change", "change" -> "Arrivé"))
    }
 
@@ -47,34 +47,36 @@ class TEngineTest  extends FlatSpec with BeforeAndAfterEach {
     assert(scte.checkSyntax)
     assert(sste.checkSyntax)
     assert(cte.checkSyntax)
-    assert(!(new TEngine("Ma forme template ${$nom sans fermeture", Map())).checkSyntax)
+    assert((new TEngine("Ma forme temp$late  {$nom} {} sans fermeture", Map())).checkSyntax)
+    assert(!(new TEngine("Ma forme template $ $nom sans $ fermeture", Map())).checkSyntax)
+    assert(!(new TEngine("Ma forme template ${nom sans fermeture", Map())).checkSyntax)
   }
 
    it should "returns a not null string value for any entries" in {
-     assert(false)
-   }
+      assert((new TEngine("", Map())) != null)
+  }
 
    it should "raise exception when variable does not exists" in {
-     assert(false)
+     val thr = intercept[VarNotFoundException] {
+       (new TEngine("Simple texte with $out any variable", Map("some" -> "result"))).perform
+     }
+     assert(thr.msg == "Il existe encore des variables non définis")
    }
 
    it should "evaluate simple single variable expression" in {
-     assert(scte.perform)
+     assert(sste.perform)
    }
 
    it should "evaluate simple multiple variables expression" in {
-     assert(false)
+     assert((new TEngine("Simple texte with $any complex $variable", Map("any" -> "some", "variable" -> "my own variable"))).perform)
    }
 
    it should "evaluate complexe single variable expression" in {
-     assert(false)
+     assert(scte.perform)
    }
 
-   it should "evaluate complexe multiple variables expression" in {
-     assert(false)
+   it should "evaluate complexe multiple case variables expression" in {
+       assert(cte.perform)
    }
 
-   it should "evaluate simple and complexe cases expression" in {
-     assert(false)
-   }
 }
