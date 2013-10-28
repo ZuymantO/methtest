@@ -1,15 +1,14 @@
-package code;
-
 import static org.junit.Assert.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import junit.textui.*;
+import junit.framework.TestCase;
 
-public class InfixToPostFixTest {
+public class InfixToPostFixTest extends TestCase {
 	
 	InfixToPostFix Exp;
 	List infix = null;

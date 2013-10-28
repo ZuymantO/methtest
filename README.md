@@ -18,4 +18,7 @@ to launch the chosen test
 [make se] for String Set
 [make te] for Template Engine
 [make ae] for Arithmetic Expression
+
+[make cmpin] for Infix Postfix arithmetic conversion
+[make in] to execute Postfix arithmetic conversion tests
 and so on ...
